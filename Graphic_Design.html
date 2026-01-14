@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphic Design | 謝欣玲 Xie Xinling</title>
+    
+    <link rel="stylesheet" href="主頁樣式設定.css">
+    <link rel="stylesheet" href="修改動態陰影.css">
+
+    <style>
+        /* --- Graphic Design 專屬樣式 --- */
+        
+        :root {
+            --bg-dark: #0a0a0a;
+            --accent-teal: #2a9d8f; /* 區別於攝影的棕色、動態的橘色，這裡使用設計感的青色 */
+            --card-bg: #151515;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* 1. Hero 主視覺 */
+        .design-hero {
+            position: relative;
+            height: 50vh; /* 平面設計頁面通常不需要太高的 Hero，讓作品更快被看到 */
+            width: 100%;
+            /* 這裡建議放一張你的設計作品合成圖，或乾淨的幾何背景 */
+            background-image: url('主頁圖片/bg1.jpg'); 
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .design-hero::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); /* 壓暗背景讓文字清楚 */
+        }
+
+        .hero-title {
+            position: relative;
+            z-index: 2;
+            font-family: 'Arial Black', sans-serif;
+            font-size: 3.5rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            border: 4px solid #fff; /* 框線設計風格 */
+            padding: 20px 40px;
+            text-align: center;
+        }
+        
+        .hero-subtitle {
+            display: block;
+            font-size: 1rem;
+            font-weight: normal;
+            margin-top: 10px;
+            letter-spacing: 2px;
+            font-family: sans-serif;
+        }
+
+        /* 2. 分隔標題 (Section Title) */
+        .section-title {
+            max-width: 1200px;
+            margin: 60px auto 30px;
+            padding-left: 20px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            border-left: 5px solid var(--accent-teal);
+            color: #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title span {
+            font-size: 0.9rem;
+            color: #888;
+            margin-left: 15px;
+            font-weight: normal;
+        }
+
+        /* 通用容器 */
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 3. 作品展示卡片 (通用設定) */
+        .design-card {
+            position: relative;
+            background: var(--card-bg);
+            overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+
+        .design-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        /* Hover 效果：圖片放大，出現遮罩文字 */
+        .design-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+        
+        .design-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .card-overlay {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .design-card:hover .card-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--accent-teal);
+        }
+
+        /* 4. 排版樣式 A：品牌識別 (Branding) - 兩欄寬卡片 */
+        .grid-branding {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        .branding-item {
+            aspect-ratio: 16/10; /* 橫式比例 */
+        }
+
+        /* 5. 排版樣式 B：海報牆 (Posters) - 直式瀑布流感 */
+        .grid-posters {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4欄 */
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+        .poster-item {
+            aspect-ratio: 3/3; /* 標準海報比例 */
+        }
+
+        /* 6. 排版樣式 C：插畫與其他 (Illustration) - 錯落拼接 */
+        .grid-mix {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            height: 500px; /* 固定高度讓排版穩定 */
+        }
+        
+        .mix-large {
+            height: 100%;
+        }
+        
+        .mix-col {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: 100%;
+        }
+        
+        .mix-small {
+            flex: 1; /* 均分上下空間 */
+        }
+
+
+        /* RWD 手機版適配 */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2rem; padding: 10px 20px; }
+            .grid-branding, .grid-posters, .grid-mix {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            .poster-item { aspect-ratio: unset; } /* 手機版不強制比例，依圖片高度 */
+            .mix-col { height: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-logo">
+            <span class="dot"></span>
+            <a href="index.html" id="logo-link">Xie Xinling</a>
+        </div>
+        <nav class="header-nav">
+            <ul>
+                <li><a href="Photography.html">Photography</a></li>
+                <li><a href="Motion_Graphics.html">Motion Graphics</a></li> 
+                <li><a href="Graphic_Design.html" class="active">Graphic Design</a></li>
+                <li><a href="關於我.html">About</a></li>
+            </ul>
+        </nav>
+        <div class="header-search">
+            <a href="#">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </a>
+        </div>
+    </header>
+    
+    <main>
+        <section class="design-hero">
+            <div class="hero-title">
+                Graphic Design
+                <span class="hero-subtitle">Visual Communication / Branding / Illustration</span>
+            </div>
+        </section>
+
+        <div class="section-title">
+            實體作品
+            <span></span>
+        </div>
+
+        <div class="gallery-container">
+            <div class="grid-branding">
+                <div class="design-card branding-item">
+                    <img src="主頁圖片/DSCF2001.JPG" alt="立牌作品1">
+                    <div class="card-overlay">
+                        <div class="card-title">墨鏡鸚鵡</div>
+                        <div class="card-desc">(ゝ∀･)</div>
+                    </div>
+                </div>
+                <div class="design-card branding-item">
+                    <img src="主頁圖片/DSCF2000.JPG" alt="立牌作品2">
+                    <div class="card-overlay">
+                        <div class="card-title">哭哭鸚鵡</div>
+                        <div class="card-desc">(*´･д･)?</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">
+            繪畫作品
+            <span></span>
+        </div>
+
+        <div class="gallery-container">
+            <div class="grid-posters">
+                <div class="design-card poster-item">
+                    <img src="主頁圖片/9.png" alt="海報1">
+                    <div class="card-overlay"><div class="card-title">=͟͟͞͞( •̀д•́)</div></div>
+                </div>
+                <div class="design-card poster-item">
+                    <img src="主頁圖片/7.png" alt="海報2">
+                    <div class="card-overlay"><div class="card-title"></div>=͟͟͞͞( •̀д•́)</div>
+                </div>
+                <div class="design-card poster-item">
+                    <img src="主頁圖片/00.JPG" alt="海報3">
+                    <div class="card-overlay"><div class="card-title">=͟͟͞͞( •̀д•́)</div></div>
+                </div>
+                <div class="design-card poster-item">
+                    <img src="主頁圖片/45.JPG" alt="海報4">
+                    <div class="card-overlay"><div class="card-title">─=≡Σ( つ•̀ω•́)つ</div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">
+            其他繪畫作品
+            <span></span>
+        </div>
+
+        <div class="gallery-container">
+            <div class="grid-mix">
+                <div class="design-card mix-large">
+                    <img src="主頁圖片/01.png" alt="主視覺插畫">
+                    <div class="card-overlay">
+                        <div class="card-title">(`・ω・´)</div>
+                        <div class="card-desc"></div>
+                    </div>
+                </div>
+                
+                <div class="mix-col">
+                    <div class="design-card mix-small">
+                        <img src="主頁圖片/IMG_0509.jpg" alt="書籍封面">
+                        <div class="card-overlay"><div class="card-title">(●´ω｀●)ゞ</div></div>
+                    </div>
+                    <div class="design-card mix-small">
+                        <img src="主頁圖片/4.jpg" alt="雜誌排版">
+                        <div class="card-overlay"><div class="card-title">(*´з｀*)</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="height: 100px;"></div>
+
+    </main>
+
+    <script src="滾動橘線設定.js"></script>
+
+</body>
+</html>

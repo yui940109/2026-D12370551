@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>主頁 | 謝欣玲 Xie Xinling</title>
+    
+    <link rel="stylesheet" href="主頁樣式設定.css">
+
+    <link rel="stylesheet" href="修改動態陰影.css">
+
+    <style>
+
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-logo">
+            <span class="dot"></span>
+            <a href="index.html" id="logo-link">Xie Xinling</a>
+        </div>
+        <nav class="header-nav">
+            <ul>
+                <li><a href="Photography.html">Photography</a></li>
+                <li><a href="Motion_Graphics.html">Motion Graphics</a></li> 
+                <li><a href="Graphic_Design.html">Graphic Design</a></li>
+                <li><a href="關於我.html">About</a></li>
+            </ul>
+        </nav>
+        <div class="header-search">
+            <a href="#">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </a>
+        </div>
+    </header>
+    
+    <main class="hero-section">
+        
+        <div class="background-visual"></div>
+
+        <div class="content-overlay">
+            
+            <div class="work-cards-container">
+                
+                <div class="work-card photography-card">
+                    <h3>【近期攝影作品】</h3>
+                    <div class="slider-container">
+                        <button class="slider-btn left" onclick="slidePhotos('photo-slide-wrapper-1', -1)">&#10094;</button>
+                        
+                        <div class="photo-slide-wrapper" id="photo-slide-wrapper-1">
+                            <img src="主頁圖片/DSCF2064.jpg" alt="風景攝影1" onclick="openModal(this.src)">
+                            <img src="主頁圖片/DSCF2011.JPG" alt="風景攝影2" onclick="openModal(this.src)">
+                            <img src="主頁圖片/2025-06-03 210752.png" alt="微距攝影" onclick="openModal(this.src)">
+                            <img src="主頁圖片/DSF643.jpg" alt="林道風景" onclick="openModal(this.src)">
+                            <img src="主頁圖片/DSCF1285-1.jpg" alt="人像01" onclick="openModal(this.src)">
+                            <img src="主頁圖片/DSCF1905-1.jpg" alt="人像02" onclick="openModal(this.src)">
+                        </div>
+
+                        <button class="slider-btn right" onclick="slidePhotos('photo-slide-wrapper-1', 1)">&#10095;</button>
+                    </div>
+                </div>
+
+                <div class="work-card standee-card">
+                    <h3>【近期其他作品】</h3>
+                    <div class="slider-container">
+                        <button class="slider-btn left" onclick="slidePhotos('photo-slide-wrapper-2', -1)">&#10094;</button>
+
+                        <div class="photo-slide-wrapper" id="photo-slide-wrapper-2">
+                            <img src="主頁圖片/DSCF2000.JPG" alt="立牌作品1" onclick="openModal(this.src)">
+                            <img src="主頁圖片/DSCF2001.JPG" alt="立牌作品2" onclick="openModal(this.src)">
+                            <img src="主頁圖片/7.png" alt="立牌作品3" onclick="openModal(this.src)">
+                            <img src="主頁圖片/120.jpg" alt="立牌作品4" onclick="openModal(this.src)">
+                        </div>
+
+                        <button class="slider-btn right" onclick="slidePhotos('photo-slide-wrapper-2', 1)">&#10095;</button>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="vertical-nav">
+                <a href="javascript:void(0)" class="nav-dot"            data-bg="bg-section-1">01</a>
+                <a href="javascript:void(0)" class="nav-dot"            data-bg="bg-section-2">02</a>
+                <a href="javascript:void(0)" class="nav-dot"            data-bg="bg-section-3">03</a> 
+                <a href="javascript:void(0)" class="nav-dot"            data-bg="bg-section-4">04</a>
+                <a href="javascript:void(0)" class="nav-dot"            data-bg="bg-section-5">05</a>
+                <span class="line"></span>
+            </div>
+
+        </div>
+
+    </main>
+
+    <div id="imageModal" class="modal" onclick="closeModal(event)">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="img01">
+    </div>
+
+    <script src="滾動橘線設定.js"></script>
+    
+    <script src="修改動態陰影.js"></script>
+
+    <script>
+        // ----------------------------------------------------
+        // 導覽列橘線邏輯
+        // ----------------------------------------------------
+        document.addEventListener('DOMContentLoaded', () => {
+            const allLinks = document.querySelectorAll('.main-header a');
+            const logoLink = document.getElementById('logo-link');
+            
+            function setActiveLink(targetLink) {
+                allLinks.forEach(l => l.classList.remove('active'));
+                targetLink.classList.add('active');
+            }
+
+            allLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (this.getAttribute('href') === '#') {
+                        e.preventDefault(); 
+                    }
+                    setActiveLink(this);
+                });
+            });
+            
+            setActiveLink(logoLink); 
+        });
+
+
+        // ----------------------------------------------------
+        // 圖片滑動邏輯 (右側循環，左側停止，末尾對齊)
+        // ----------------------------------------------------
+        /**
+         * 點擊箭頭時水平滾動圖片容器
+         * @param {string} containerId - 圖片容器的 ID
+         * @param {number} direction - 滾動方向 (1 為右, -1 為左)
+         */
+        function slidePhotos(containerId, direction) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            const firstImage = container.querySelector('img');
+            if (!firstImage) return;
+
+            // 獲取第一個圖片的實際寬度
+            const imageWidth = firstImage.offsetWidth;
+            
+            // CSS 中圖片間距為 15px (gap: 15px)
+            const GAP_SIZE = 15; 
+            
+            // 精確的滾動步長：一張圖的寬度 + 間距
+            const scrollDistance = imageWidth + GAP_SIZE;
+            
+            // 容器的最大滾動位置 (內容總寬度 - 容器可視寬度)
+            const maxScrollLeft = container.scrollWidth - container.clientWidth;
+            
+            // 下一個滾動位置
+            let targetScrollLeft = container.scrollLeft + scrollDistance * direction;
+            
+            
+            // 處理循環和邊界
+            if (direction === 1) { // 往右滑動
+                
+                // 檢查是否已經在最右側 (使用一個小的誤差值，因為滾動位置可能是浮點數)
+                if (container.scrollLeft >= maxScrollLeft - 1) {
+                    // **右側循環：如果已經在最右側，跳回 0 (第一張圖)**
+                    targetScrollLeft = 0; 
+                } else if (targetScrollLeft > maxScrollLeft) {
+                    // **優化：如果下次滾動會超出範圍，則精確定位到末尾（讓最後一張圖完整顯示）**
+                    targetScrollLeft = maxScrollLeft;
+                } else {
+                    // 正常滾動：確保精確對齊到最近的圖片的開始位置
+                    targetScrollLeft = Math.round(targetScrollLeft / scrollDistance) * scrollDistance;
+                }
+
+            } else { // 往左滑動
+                if (targetScrollLeft <= 0) { // 條件改為小於等於 0，確保停在最左側
+                     // 左側停止：阻止滾動超過最左側，停在 0
+                    targetScrollLeft = 0;
+                } else {
+                     // 正常滾動：確保精確對齊到最近的圖片的開始位置
+                     targetScrollLeft = Math.round(targetScrollLeft / scrollDistance) * scrollDistance;
+                }
+            }
+
+            // 使用 scrollTo 進行平滑滾動到目標位置
+            container.scrollTo({
+                left: targetScrollLeft,
+                behavior: 'smooth' 
+            });
+        }
+
+
+        // ----------------------------------------------------
+        // 圖片放大 (Modal) 邏輯
+        // ----------------------------------------------------
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("img01");
+
+        function openModal(imgSrc) {
+          modal.style.display = "flex";
+          modalImg.src = imgSrc;
+          // 禁用背景滾動
+          document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal(event) {
+          // 確保只有點擊 Modal 背景或 X 按鈕時才關閉
+          if (event.target === modal || event.target.className === 'close') {
+            modal.style.display = "none";
+            document.body.style.overflow = 'auto';
+          }
+        }
+        
+        // X 按鈕的關閉事件
+        document.querySelector('.close').onclick = (e) => {
+            e.stopPropagation();
+            modal.style.display = "none";
+            document.body.style.overflow = 'auto'; 
+        };
+
+        // 按下 ESC 鍵的關閉事件
+        document.onkeydown = function(e) {
+            e = e || window.event;
+            if (e.keyCode === 27) {
+                modal.style.display = "none";
+                document.body.style.overflow = 'auto';
+            }
+        };
+        
+
+        document.addEventListener('DOMContentLoaded', () => {
+    const navLinks = document.querySelectorAll('.vertical-nav a');
+    const bgVisual = document.querySelector('.background-visual');
+
+    // 預設顯示第三個背景 (因為你的 HTML 03 有 current class)
+    bgVisual.classList.add('bg-section-3');
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            // 1. 移除所有導覽點的選中狀態 (current class)
+            navLinks.forEach(l => l.classList.remove('current'));
+            // 2. 為點擊的對象加上選中狀態
+            this.classList.add('current');
+
+            // 3. 獲取對應的背景類別名稱
+            const targetBg = this.getAttribute('data-bg');
+
+            // 4. 清除舊的背景類別並加入新的
+            // 先移除所有可能的 bg-section-* 類別
+            bgVisual.className = 'background-visual'; 
+            bgVisual.classList.add(targetBg);
+        });
+    });
+});
+    </script>
+</body>
+</html>

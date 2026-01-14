@@ -1,0 +1,65 @@
+/* ========================================= */
+/* 1. 主容器樣式 (隱藏捲軸與設置動畫) */
+/* ========================================= */
+.work-cards-container {
+    background-color: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    padding: 30px; 
+    border-radius: 20px;
+    width: 800px;
+    max-height: 60vh;
+    
+    /* 確保內容溢出時可滾動 */
+    overflow-y: auto; 
+    position: relative; 
+    
+    /* 關鍵：讓陰影變化平滑 */
+    transition: box-shadow 0.4s ease-out; 
+
+    /* 隱藏捲軸的屬性 (FF, IE/Edge) */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    
+    /* 預設無陰影 */
+    box-shadow: none; 
+}
+
+/* 隱藏捲軸的屬性 (Chrome, Safari, Edge) */
+.work-cards-container::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* ========================================= */
+/* 2. 陰影狀態 (根據 JS 設置的 data-shadow 屬性觸發) */
+/* ========================================= */
+
+/* 您可以調整這個基礎色，使其與背景更好地融合 */
+:root {
+    --shadow-color: rgba(83, 255, 143, 0.799); /* 使用黑色半透明來模擬陰影 */
+    --shadow-size: 10px; /* 陰影的高度 */
+    --shadow-blur: 10px; /* 模糊度 */
+}
+
+/* 只有底部陰影 (在頂部時，提示向下滾動) */
+.work-cards-container[data-shadow="bottom"] {
+    box-shadow: 
+        /* 底部陰影：向下偏移，模糊，負擴散（使邊緣更柔和）*/
+        0 var(--shadow-size) var(--shadow-blur) calc(0px - var(--shadow-size)) var(--shadow-color) inset;
+}
+
+/* 只有頂部陰影 (在底部時，提示向上滾動) */
+.work-cards-container[data-shadow="top"] {
+    box-shadow: 
+        /* 頂部陰影：向上偏移，模糊，負擴散 */
+        0 calc(0px - var(--shadow-size)) var(--shadow-blur) calc(0px - var(--shadow-size)) var(--shadow-color) inset;
+}
+
+/* 頂部和底部陰影 (在中間時) */
+.work-cards-container[data-shadow="both"] {
+    box-shadow: 
+        /* 頂部陰影 */
+        0 calc(0px - var(--shadow-size)) var(--shadow-blur) calc(0px - var(--shadow-size)) var(--shadow-color) inset, 
+        /* 底部陰影 */
+        0 var(--shadow-size) var(--shadow-blur) calc(0px - var(--shadow-size)) var(--shadow-color) inset;
+}

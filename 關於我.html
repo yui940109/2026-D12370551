@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>關於我 | 謝欣玲 Xie Xinling</title>
+
+ <link rel="stylesheet" href="關於我樣式設定.css">
+
+    <style>
+
+/* --- 內文和技能區塊 --- */
+.introduction {
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.skills-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    border-top: 1px solid #333; 
+    padding-top: 30px;
+}
+
+.adobe-skills, .other-skills {
+    flex: 1;
+    width: 50%;
+}
+
+.other-skills {
+    margin-left: 50px; 
+}
+
+.skills-section h3 {
+    color: #E94E1B; 
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #E94E1B; 
+    padding-bottom: 5px;
+}
+
+.skills-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.skills-section li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.skills-section li img {
+    width: 30px; 
+    height: 30px;
+    margin-right: 10px;
+}
+
+/* --- 社交媒體與聯絡資訊 --- */
+.social-media {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px dashed #333;
+}
+
+.social-media p {
+    margin-bottom: 10px;
+    color: #999;
+}
+
+.social-media a img {
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+}
+
+.contact-info {
+    border-top: 1px solid #E94E1B; 
+    padding-top: 20px;
+    line-height: 1.8;
+}
+
+/* 響應式設計 (手機螢幕調整) */
+@media (max-width: 768px) {
+    .about-hero {
+        height: 300px;
+        padding-left: 5%;
+    }
+    
+    .page-title {
+        font-size: 2.5em;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-avatar {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+
+    .skills-section {
+        flex-direction: column;
+        border-top: none;
+    }
+
+    .adobe-skills, .other-skills {
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 30px;
+    }
+}
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-logo">
+            <span class="dot"></span>
+            <a href="index.html" id="logo-link">Xie Xinling</a>
+        </div>
+        <nav class="header-nav">
+            <ul>
+                <li><a href="photography.html">Photography</a></li>
+                <li><a href="motion.html">Motion Graphics</a></li> 
+                <li><a href="Graphic_Design.html">Graphic Design</a></li>
+                <li><a href="關於我.html">About</a></li> 
+            </ul>
+        </nav>
+        <div class="header-search">
+            <a href="#">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </a>
+        </div>
+    </header>
+    
+    <section class="about-hero">
+        <h1 class="page-title">| About me</h1>
+    </section>
+
+    <section class="about-content">
+        <div class="profile-card">
+            <div class="profile-header">
+                <img src="關於我圖片/01.png" alt="謝欣玲大頭貼" class="profile-avatar"> 
+                <div class="profile-info">
+                    <h2>謝欣玲 Xie Xinling <span class="age">(21)</span></h2>
+                    <p class="college">就讀【台南應用科技大學】多媒體動畫系</p>
+                </div>
+            </div>
+
+            <div class="profile-body">
+                <p class="introduction">
+                    只是一個對繪畫毫無天分，<br>
+                    卻硬是闖入多媒體動畫系的小菜鳥。<br>
+                    勇於嘗試各種新事物，目前在繪畫、攝影及剪輯師之間反覆橫跳，<br>
+                    接觸過的軟體有...
+                </p>
+
+                <div class="skills-section">
+                    <div class="adobe-skills">
+                        <h3>Adobe系列:</h3>
+                        <ul>
+                            <li><img src="關於我圖片/After Effects.png" alt="Ae Icon"> 【 Ae 】 After Effects</li>
+                            <li><img src="關於我圖片/Animate.png" alt="An Icon"> 【 An 】 Animate</li>
+                            <li><img src="關於我圖片/Illustrator.png" alt="Ai Icon"> 【 Ai 】 Illustrator</li>
+                            <li><img src="關於我圖片/Photoshop.png" alt="Ps Icon"> 【 Ps 】 Photoshop</li>
+                            <li><img src="關於我圖片/Lightroom Classic.png" alt="Lrc Icon"> 【 Lrc 】 Lightroom Classic</li>
+                        </ul>
+                    </div>
+
+                    <div class="other-skills">
+                        <h3>其他程式:</h3>
+                        <ul>
+                            <li><img src="關於我圖片/FileDaVinci Resolve Studio - Wikimedia Commons.png" alt="Davinci Icon"> 【 Davinci Resolve 】</li>
+                            <li><img src="關於我圖片/123.png" alt="Power Director Icon"> 【 Power Director 】</li>
+                            <li><img src="關於我圖片/Download Clip Studio Paint for Mac  MacUpdate.png" alt="Clip Studio Icon"> 【 Clip Studio 】</li>
+                        </ul>
+                        
+                        <div class="social-media">
+                            <p>歡迎追蹤我的作品:</p>
+                            <a href="https://www.instagram.com/"><img src="關於我圖片/Instagram.png" alt="Instagram Icon"></a>
+                            <a href="https://www.facebook.com/?locale=zh_TW"><img src="關於我圖片/Facebook .png" alt="Facebook Icon"></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-info">
+                    <p>電話: 090906xxxx</p>
+                    <p>E-mail: a090906xxxx@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <script src="新橘線設定.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,91 @@
+/* ========================================= */
+/* 1. 主容器樣式：啟用滾動、定位與背景效果 */
+/* ========================================= */
+.work-cards-container {
+    /* 您的基本樣式 */
+    background-color: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    padding: 30px; /* 這裡的 30px padding 是修正漸層斷層的關鍵 */
+    border-radius: 20px;
+    width: 800px;
+    max-height: 60vh;
+    
+    /* 啟用滾動並相對定位 */
+    overflow-y: auto; 
+    position: relative; 
+    
+    /* --------------------------------- */
+    /* 2. 隱藏捲軸：針對 Firefox 和 IE/Edge */
+    /* --------------------------------- */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+}
+
+/* 2. 隱藏捲軸：針對 Chrome, Safari, Edge */
+.work-cards-container::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* ========================================= */
+/* 3. 漸層偽元素 (預設為透明且已修正定位) */
+/* ========================================= */
+
+/* 頂部漸層 (::before) */
+.work-cards-container::before {
+    content: "";
+    position: absolute;
+    /* 修正斷層：用負值抵消頂部的 30px padding */
+    top: -30px; 
+    left: 0;
+    right: 0;
+    
+    height: 30px; 
+    z-index: 3;
+    /* 預設透明，並加上過渡動畫 */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)); 
+    pointer-events: none;
+    transition: background 0.4s ease-out; 
+}
+
+/* 底部漸層 (::after) */
+.work-cards-container::after {
+    content: "";
+    position: absolute;
+    /* 修正斷層：用負值抵消底部的 30px padding */
+    bottom: -30px; 
+    left: 0;
+    right: 0;
+    
+    height: 30px; 
+    z-index: 3;
+    /* 預設透明，並加上過渡動畫 */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
+    pointer-events: none;
+    transition: background 0.4s ease-out; 
+}
+
+
+/* ========================================= */
+/* 4. 漸層觸發 Class (由 JavaScript 控制) */
+/* ========================================= */
+
+/* 顯示頂部陰影 */
+.work-cards-container.has-top-shadow::before {
+    /* 頂部漸層：從濃到淡（向下漸變） */
+    background: linear-gradient(
+        to bottom, 
+        rgba(255, 255, 255, 0.25), 
+        rgba(255, 255, 255, 0)      
+    );
+}
+
+/* 顯示底部陰影 */
+.work-cards-container.has-bottom-shadow::after {
+    /* 底部漸層：從濃到淡（向上漸變） */
+    background: linear-gradient(
+        to top, 
+        rgba(255, 255, 255, 0.25), 
+        rgba(255, 255, 255, 0)      
+    );
+}

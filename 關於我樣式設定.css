@@ -1,0 +1,161 @@
+        /* ---------------------------------------------------- */
+        /* 基礎樣式 (Base Styles) */
+        /* ---------------------------------------------------- */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ---------------------------------------------------- */
+        /* 頁首 (HEADER) 樣式 - 橘線核心區 */
+        /* ---------------------------------------------------- */
+        .main-header {
+            display: flex; 
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 50px;
+            box-sizing: border-box;
+            z-index: 100;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.1em;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .header-logo .dot {
+            width: 8px;
+            height: 8px;
+            background-color: #ff7043;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .header-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 40px; 
+        }
+
+        .main-header a {
+            position: relative;
+            transition: color 0.3s ease;
+            padding-bottom: 5px; 
+        }
+        
+        /* 橘線樣式：線條緊貼文字底部 */
+        .main-header a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #ff7043;
+            transform: scaleX(0); 
+            transform-origin: left center;
+            transition: transform 0.3s ease;
+        }
+
+        .main-header a.active {
+            color: #ff7043;
+        }
+
+        .main-header a.active::after {
+            transform: scaleX(1); 
+        }
+
+        .header-search {
+            width: 20px;
+            height: 20px;
+            opacity: 0.8;
+            cursor: pointer;
+        }
+
+        .search-icon {
+            width: 100%;
+            height: 100%;
+            stroke: white;
+            stroke-width: 2;
+        }
+
+        /* --- 頁首圖片區塊 (About Hero) --- */
+        .about-hero {
+            background-image: url(關於我圖片/DSCF2031.jpg); 
+            background-size: cover;
+            background-position: center;
+            height: 400px; 
+            display: flex;
+            align-items: flex-end; 
+            padding-left: 10%; 
+            padding-top: 80px;
+        }
+        
+        .page-title {
+            color: white;
+            font-size: 3em;
+            font-weight: bold;
+            padding-bottom: 30px; 
+        }
+        
+        
+        /* --- 主要內容區塊 --- */
+        .about-content {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 50px 10%; 
+            color: white;
+        }
+        
+        .profile-card {
+            max-width: 900px; 
+            margin: 0 auto;
+        }
+        
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .profile-avatar {
+            width: 150px; 
+            height: 150px;
+            border-radius: 10px; 
+            margin-right: 20px;
+            object-fit: cover;
+            border: 3px solid #E94E1B; 
+        }
+        
+        .profile-info h2 {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+        
+        .profile-info .age {
+            font-size: 0.7em;
+            font-weight: normal;
+        }
+        
+        .profile-info .college {
+            color: #E94E1B; 
+            font-size: 1.1em;
+        }

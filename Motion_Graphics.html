@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motion Graphics | 謝欣玲 Xie Xinling</title>
+    
+    <link rel="stylesheet" href="主頁樣式設定.css">
+    <link rel="stylesheet" href="修改動態陰影.css">
+
+    <style>
+        /* --- Motion Graphics 專屬樣式 --- */
+        
+        :root {
+            --bg-dark: #0a0a0a;
+            --accent-orange: #ff6b35; 
+            --card-bg: #1a1a1a;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* 1. Hero 標題區 */
+        .motion-hero {
+            height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('主頁圖片/bg2.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .motion-title {
+            font-family: 'Arial Black', sans-serif;
+            font-size: 3.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(255, 107, 53, 0.6);
+            text-align: center;
+        }
+        
+        .motion-subtitle {
+            font-size: 1rem;
+            font-weight: normal;
+            display: block;
+            margin-top: 10px;
+            color: #ccc;
+            letter-spacing: 5px;
+        }
+
+        /* 2. Showreel 年度主打區 (大影片框) */
+        .showreel-section {
+            max-width: 1000px;
+            margin: -50px auto 60px;
+            position: relative;
+            z-index: 2;
+            padding: 0 20px;
+        }
+
+        /* 影片容器 (維持 16:9 比例的關鍵) */
+        .video-wrapper-large {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 比例 */
+            height: 0;
+            background: #000;
+            border: 1px solid #333;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            overflow: hidden; /* 確保圓角或內容不溢出 */
+        }
+
+        /* --- [新增] 讓 iframe 自動填滿容器 --- */
+        .video-wrapper-large iframe,
+        .thumbnail-box iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* 3. 作品網格區 */
+        .works-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .section-header {
+            border-left: 4px solid var(--accent-orange);
+            padding-left: 15px;
+            margin-bottom: 30px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .motion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .video-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 107, 53, 0.15);
+        }
+
+        .thumbnail-box {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            overflow: hidden;
+            background: #000;
+        }
+
+        /* 針對還是使用圖片的縮圖樣式 */
+        .thumbnail-box img {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .video-card:hover .thumbnail-box img {
+            transform: scale(1.1);
+        }
+
+        /* 播放按鈕圖示 */
+        .play-icon {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px; height: 50px;
+            background: rgba(0,0,0,0.6);
+            border-radius: 50%;
+            border: 2px solid #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+            pointer-events: none; /* 讓點擊穿透到圖片 */
+        }
+
+        .play-icon::after {
+            content: '';
+            display: block;
+            width: 0; height: 0;
+            border-style: solid;
+            border-width: 8px 0 8px 14px;
+            border-color: transparent transparent transparent #fff;
+            margin-left: 4px;
+        }
+
+        .video-card:hover .play-icon {
+            background: var(--accent-orange);
+            border-color: var(--accent-orange);
+        }
+
+        .card-info {
+            padding: 15px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        @media (max-width: 768px) {
+            .motion-title { font-size: 2rem; }
+            .motion-grid { grid-template-columns: 1fr; }
+            .showreel-section { margin-top: -20px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-logo">
+            <span class="dot"></span>
+            <a href="index.html" id="logo-link">Xie Xinling</a>
+        </div>
+        <nav class="header-nav">
+            <ul>
+                <li><a href="Photography.html">Photography</a></li>
+                <li><a href="Motion_Graphics.html" class="active">Motion Graphics</a></li> 
+                <li><a href="Graphic_Design.html">Graphic Design</a></li>
+                <li><a href="關於我.html">About</a></li>
+            </ul>
+        </nav>
+        <div class="header-search">
+            <a href="#">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </a>
+        </div>
+    </header>
+    
+    <main>
+        
+        <section class="motion-hero">
+            <div class="motion-title">
+                Motion Graphics
+                <span class="motion-subtitle">Showreel & Projects</span>
+            </div>
+        </section>
+
+        <section class="showreel-section">
+            <div class="video-wrapper-large">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/gRxrccEH8fk?si=3LtC9Z9ELjWn1baD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                </iframe>
+            </div>
+            <div style="text-align: center; margin-top: 15px; color: #888;">
+                <p>2025 Demo Reel</p>
+            </div>
+        </section>
+
+        <div class="works-container">
+            
+            <div class="section-header">Selected Works</div>
+
+            <div class="motion-grid">
+                
+                <div class="video-card">
+                    <div class="thumbnail-box">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/C54E6XYKmhE?si=NRfYxY1wPZz9MikC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-title">AE作業</div>
+                        <div class="card-desc">After Effects</div>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="thumbnail-box">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/8bu_gOJV-ik?si=0jbK8wvDCGmd9WdG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-title">日常剪輯作業</div>
+                        <div class="card-desc">Davinci Resolve </div>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="thumbnail-box">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/z7bfuJdp0eQ?si=DE8ORuAkbOCZTvY2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-title">3D作業</div>
+                        <div class="card-desc">Blender</div>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="thumbnail-box">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/Y--hjhSSsbc?si=uqLNJHxVEGWZjicU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-title">特效剪輯</div>
+                        <div class="card-desc"></div>
+                    </div>
+                </div>
+
+                 <div class="video-card">
+                    <div class="thumbnail-box">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/qlQltRu8CEg?si=r2CCc-9T1MHzei0e" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-title">調色練習</div>
+                        <div class="card-desc"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div style="height: 50px;"></div>
+
+    </main>
+
+    <script src="滾動橘線設定.js"></script>
+
+</body>
+</html>
